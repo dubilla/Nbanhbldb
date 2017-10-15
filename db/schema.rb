@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171015202448) do
+ActiveRecord::Schema.define(version: 20171015203332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "matchups", force: :cascade do |t|
+    t.integer  "week_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "matchups", ["week_id"], name: "index_matchups_on_week_id", using: :btree
 
   create_table "weeks", force: :cascade do |t|
     t.string   "name"
@@ -24,4 +32,5 @@ ActiveRecord::Schema.define(version: 20171015202448) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "matchups", "weeks"
 end
